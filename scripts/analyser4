@@ -1,0 +1,22 @@
+#!/bin/bash
+youngest_line=""
+youngest_age=200
+oldest_line=""
+oldest_age=0
+
+for file in "$1"/*.txt; do
+	while read line; do
+		age=$(echo "$line" | cut -d: -f2)
+		if [ "$age" -lt "$youngest_age" ]; then
+			youngest_line="$line"
+			youngest_age=$age
+		fi
+		if [ "$age" -gt "$oldest_age" ]; then
+			oldest_line="$line"
+			oldest_age=$age
+		fi
+	done < "$file"
+done
+
+echo "Самый молодой: $youngest_line"
+echo "Самый старший: $oldest_line"

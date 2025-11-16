@@ -1,0 +1,16 @@
+#!/bin/bash
+adults=0
+minors=0
+for file in "$1"/*.txt; do
+	while read line; do
+		age=$(echo "$line" | cut -d: -f2)
+		if [ "$age" -ge 18 ]; then
+			((adults++))
+		else
+			((minors++))
+		fi
+	done < "$file"
+done
+
+echo "Совершеннолетних: $adults"
+echo "Несовершеннолетних: $minors"

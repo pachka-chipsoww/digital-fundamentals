@@ -1,0 +1,11 @@
+#!/bin/bash
+for file in "$1"/*.txt; do
+	while read line; do
+		email=$(echo "$line" | cut -d: -f3)
+		if echo "$email" | grep -q "@spbstu.ru"; then
+			name=$(echo "$line" | cut -d: -f1)
+			age=$(echo "$line" | cut -d: -f2)
+			echo "Имя: $name, Возраст: $age, Email: $email"
+		fi
+	done < "$file"
+done
